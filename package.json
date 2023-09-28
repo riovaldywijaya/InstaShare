@@ -1,0 +1,32 @@
+{
+  "name": "pairproject",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/riovaldywijaya/socmed.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/riovaldywijaya/socmed/issues"
+  },
+  "homepage": "https://github.com/riovaldywijaya/socmed#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "multer": "^1.4.5-lts.1",
+    "pg": "^8.11.3",
+    "sequelize": "^6.33.0"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.6.1"
+  }
+}

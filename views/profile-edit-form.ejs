@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - InstaShare</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+      <div class="container">
+        <a class="navbar-brand" href="/" style="font-size: 25px"><i>InstaShare</i></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/home/<%= id %>">Home</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> Profile </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/profiles/create/<%= id %>">Add Profile</a></li>
+                <li><a class="dropdown-item" href="/profiles/edit/<%= id%>">Edit Profile</a></li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/listUsers/<%= id %>">List Users</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/addPost/<%= id %>">Create Post</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/logout">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container mt-5">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header">
+              <h4>Edit Profile</h4>
+            </div>
+            <div class="card-body">
+              <form method="post" action="/profiles/edit/<%= result.UserId %>" enctype="multipart/form-data">
+                <div class="ratio ratio-1x1 rounded-circle overflow-hidden" style="width: 180px; height: 180px; margin: auto">
+                  <% if(result !== null) { %> <% if(result.profilePicture !== ''){ %>
+                  <img src="/assets/<%= result.profilePicture %>" class="card-img-top img-cover" alt="<%= result.profilePicture %>" />
+                  <% } else { %>
+                  <img src="/assets/no-profile-picture.png" class="card-img-top img-cover" alt="none" />
+                  <% } %> <% } else { %>
+                  <img src="/assets/no-profile-picture.png" class="card-img-top img-cover" alt="none" />
+                  <% }%>
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label">First Name</label>
+                  <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="firstName" value="<%= result ? result.firstName : '' %>" />
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputPassword1" class="form-label">Last Name</label>
+                  <input type="text" class="form-control" id="exampleInputPassword1" name="lastName" value="<%= result ? result.lastName : '' %>" />
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputPassword1" class="form-label">Date Of Birth</label>
+                  <input type="date" class="form-control" id="exampleInputPassword1" name="dateOfBirth" value="<%= result ? result.formattedDate : '' %>" />
+                </div>
+                <div class="mb-3">
+                  <p>Gender</p>
+                  <input type="radio" name="gender" id="flexRadioDefault1" <%= result.gender === 'Male' ? 'checked' : '' %> value="Male"/>
+                  <label for="flexRadioDefault1"> Male </label>
+
+                  <br />
+                  <input type="radio" name="gender" id="flexRadioDefault1" <%= result.gender === 'Female' ? 'checked' : '' %> value="Female"/>
+                  <label for="flexRadioDefault1"> Female </label>
+
+                  <br />
+                  <input type="radio" name="gender" id="flexRadioDefault1" <%= result.gender === 'Prefer Not To Say' ? 'checked' : '' %> value="Prefer Not To Say"/>
+                  <label for="flexRadioDefault1"> Prefer Not To Say </label>
+                </div>
+
+                <br />
+                <div class="mb-3">
+                  <label for="exampleInputPassword1" class="form-label">Phone Number</label>
+                  <input type="number" class="form-control" id="exampleInputPassword1" name="phone" value="<%= result ? result.phone : '' %>" />
+                </div>
+                <div class="mb-3">
+                  <label for="formFile" class="form-label">Profile Picture</label>
+                  <input class="form-control" type="file" id="formFile" name="profilePicture" value="<%= result ? result.profilePicture : '' %>" />
+                  <br />
+                </div>
+                <div class="form">
+                  <p>Bio</p>
+                  <textarea name="bio" class="form-control" id="floatingTextarea2" style="height: 100px"><%= result ? result.bio : '' %></textarea>
+                </div>
+                <br />
+                <button type="submit" class="btn btn-primary">Edit Profile</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  </body>
+</html>
