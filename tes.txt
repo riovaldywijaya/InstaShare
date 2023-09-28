@@ -1,1 +1,4 @@
-tes
+npx sequelize model:generate --name User --attributes email:string,password:string,role:string
+npx sequelize model:generate --name Profile --attributes firstName:string,lastName:string,dateOfBirth:date,gender:string,phone:string,profilePicture:string,UserId:integer //bio ga ada
+npx sequelize model:generate --name Post --attributes caption:string,imgUrl:string,likes:integer,UserId:integer
+npx sequelize model:generate --name Like --attributes UserId:integer,PostId:integer

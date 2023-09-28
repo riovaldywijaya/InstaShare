@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>InstaShare</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <style>
+      .card-img {
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+        height: 350px;
+      }
+    </style>
+  </head>
+  <body>
+    <%- include('_navbarHome') %> <% if(errors){ %>
+    <div class="alert alert-danger" role="alert" style="width: 500px; margin: auto; text-align: center"><%= errors %></div>
+    <% } %>
+
+    <div class="container mt-5">
+      <div class="row row-cols-1 row-cols-md-8 g-4">
+        <div class="col">
+          <% result.map(e => { %>
+          <div class="card h-40 shadow" style="width: 500px; margin: auto; padding: 20px">
+            <div class="d-flex align-items-center">
+              <div class="ratio ratio-1x1 rounded-circle overflow-hidden" style="width: 40px; height: 40px">
+                <% if(e.User.Profile !== null) { %> <% if(e.User.Profile.profilePicture !== ''){ %>
+                <img src="/assets/<%= e.User.Profile.profilePicture %>" class="card-img-top img-cover" alt="<%= e.User.Profile.profilePicture %>" />
+                <% } else { %>
+                <img src="/assets/no-profile-picture.png" class="card-img-top img-cover" alt="none" />
+                <% } %> <% } else { %>
+                <img src="/assets/no-profile-picture.png" class="card-img-top img-cover" alt="none" />
+                <% }%>
+              </div>
+              <h6 class="card-title ml-3" style="margin-left: 8px"><b><%= e.User.Profile !== null ? e.User.Profile.fullName : e.User.email %></b></h6>
+            </div>
+
+            <div class="card-img" style="background-image: url('/assets/<%= e.imgUrl %>'); margin-top: 10px"></div>
+            <div class="card-body">
+              <% if(e.likes && e.likes !== null) { %>
+              <p><b><%= e.likes %> likes</b></p>
+              <% } %>
+              <a href="/like/<%= e.id %>?userId=<%= userId %>">
+                <% if(e.Likes.length != 0) { %>
+                <button type="button" class="btn btn-light" style="margin-left: -15px">❤</button>
+
+                <% } else { %>
+                <button type="button" class="btn btn-light" style="margin-left: -15px">🖤</button>
+
+                <% } %>
+              </a>
+              <br />
+              <br />
+              <p><b><%= e.User.Profile !== null ? e.User.Profile.fullName : e.User.email %></b> <%= e.caption %></p>
+            </div>
+            <div class="card-footer">
+              <small class="text-body-secondary">Last updated <%= e.showTimePost() %></small>
+            </div>
+          </div>
+          <br />
+          <% }) %>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  </body>
+</html>
